@@ -31,17 +31,22 @@ namespace Project.UI
         private float currentProgress;
         private float targetProgress;
 
-        private void Start()
-        {
-            currentProgress = 0f;
-            targetProgress  = 0f;
+       private void Start()
+{
+    currentProgress = 0f;
+    targetProgress  = 0f;
 
-            if (artSprites != null && artSprites.Length > 0 && artImage != null)
-                artImage.sprite = artSprites[Random.Range(0, artSprites.Length)];
+    if (artSprites != null && artSprites.Length > 0 && artImage != null)
+    {
+        artImage.sprite = artSprites[Random.Range(0, artSprites.Length)];
+        
+        
+        artImage.preserveAspect = true; 
+    }
 
-            StartCoroutine(LoadSceneRoutine());
-            StartCoroutine(AnimateDotsRoutine());
-        }
+    StartCoroutine(LoadSceneRoutine());
+    StartCoroutine(AnimateDotsRoutine());
+}
 
         private void Update()
         {
