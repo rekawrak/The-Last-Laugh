@@ -10,7 +10,7 @@ namespace Project.UI
     {
         // ─── CONFIGURATION ───────────────────────────────────────────────────
         [Header("[ НАЗВАНИЕ СЦЕНЫ ]")]
-        [SerializeField] private string sceneToLoad = "GameScene";
+        [SerializeField] private string sceneToLoad = "Prologue";
 
         [Header("[ МИНИМАЛЬНОЕ ВРЕМЯ ЗАГРУЗКИ ]")]
         [SerializeField] private float minimumLoadTime = 2f;

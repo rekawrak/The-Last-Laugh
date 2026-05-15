@@ -116,7 +116,7 @@ namespace Project.UI
         public void OpenSettings()
         {
              // Запоминаем что пришли из паузы
-    PlayerPrefs.SetString("PreviousScene", "GameScene");
+    PlayerPrefs.SetString("PreviousScene", "Prologue");
     PlayerPrefs.Save();
     Time.timeScale = 1f;
     SceneTransitionManager.Instance?.LoadScene(settingsSceneName);

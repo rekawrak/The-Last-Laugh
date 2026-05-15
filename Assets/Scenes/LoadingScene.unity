@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb791a3c49b94611973071f52c3968e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.UI.LoadingScreenManager
-  sceneToLoad: GameScene
+  sceneToLoad: Prologue
   minimumLoadTime: 6
   progressBarFill: {fileID: 774533010}
   barSpeed: 0.2
