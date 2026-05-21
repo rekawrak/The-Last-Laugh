@@ -44,17 +44,20 @@ TagManager:
   - name: Floor
     uniqueID: 2519486477
     locked: 0
-  - name: Walls_Low
+  - name: WalkInFront
     uniqueID: 529828255
     locked: 0
-  - name: Static_Objects
+  - name: Collision
     uniqueID: 1391713375
     locked: 0
   - name: Player
     uniqueID: 1358769575
     locked: 0
-  - name: Walls_High
+  - name: WalkBehind
     uniqueID: 477900133
+    locked: 0
+  - name: Decor
+    uniqueID: 1661699671
     locked: 0
   m_RenderingLayers:
   - Default

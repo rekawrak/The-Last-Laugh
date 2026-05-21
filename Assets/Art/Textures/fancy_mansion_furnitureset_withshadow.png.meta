@@ -1918,9 +1918,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 352
-        y: 0
+        y: 32
         width: 32
-        height: 64
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1939,6 +1939,28 @@ TextureImporter:
       name: fancy_mansion_furnitureset_withshadow_83
       rect:
         serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9775e5356d94244db8d27754bc57360e
+      internalID: -808603452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fancy_mansion_furnitureset_withshadow_84
+      rect:
+        serializedVersion: 2
         x: 384
         y: 0
         width: 32
@@ -1951,8 +1973,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46d586984aa8b482f8d6b3b573371ed7
-      internalID: -808603452
+      spriteID: 18f49d49cbd4746deba1796411eeac7b
+      internalID: 69303984
       vertices: []
       indices: 
       edges: []
@@ -2056,6 +2078,7 @@ TextureImporter:
       fancy_mansion_furnitureset_withshadow_81: -1019612532
       fancy_mansion_furnitureset_withshadow_82: -1074195206
       fancy_mansion_furnitureset_withshadow_83: -808603452
+      fancy_mansion_furnitureset_withshadow_84: 69303984
       fancy_mansion_furnitureset_withshadow_9: -123554876
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

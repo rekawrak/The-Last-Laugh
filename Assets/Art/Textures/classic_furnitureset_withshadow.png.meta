@@ -1390,9 +1390,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 294
-        y: 96
+        y: 98
         width: 18
-        height: 16
+        height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1478,9 +1478,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 32
+        y: 64
         width: 32
-        height: 64
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1545,11 +1545,11 @@ TextureImporter:
         serializedVersion: 2
         x: 64
         y: 21
-        width: 32
+        width: 64
         height: 68
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 32, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -1895,19 +1895,19 @@ TextureImporter:
       name: classic_furnitureset_withshadow_81
       rect:
         serializedVersion: 2
-        x: 320
+        x: 288
         y: 32
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 564507148cd8a4fb9b345a0274afcf13
+      spriteID: cd9c8a9cabbd242bfabbaa375a24fb11
       internalID: -478112453
       vertices: []
       indices: 
@@ -1917,32 +1917,10 @@ TextureImporter:
       name: classic_furnitureset_withshadow_82
       rect:
         serializedVersion: 2
-        x: 294
-        y: 113
-        width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e75569d3544b54a74b1e8d98482e961f
-      internalID: 127082835
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: classic_furnitureset_withshadow_83
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 21
+        x: 320
+        y: 32
         width: 32
-        height: 68
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1951,8 +1929,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eedc533ffa83442ec9b1e170931248f9
-      internalID: 63456156
+      spriteID: 113501f49f52547068bf7c338a9325ff
+      internalID: 127082835
       vertices: []
       indices: 
       edges: []
@@ -1973,7 +1951,7 @@ TextureImporter:
       - key: SpriteEditor.SliceOnImport
         value: False
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       classic_furnitureset_withshadow_0: 605610934
       classic_furnitureset_withshadow_1: -1659358014
@@ -2057,7 +2035,6 @@ TextureImporter:
       classic_furnitureset_withshadow_80: -2144848498
       classic_furnitureset_withshadow_81: -478112453
       classic_furnitureset_withshadow_82: 127082835
-      classic_furnitureset_withshadow_83: 63456156
       classic_furnitureset_withshadow_9: 1323653420
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
