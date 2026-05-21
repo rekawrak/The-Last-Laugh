@@ -5,7 +5,7 @@ namespace Project.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
-        // ─── CONFIGURATION ────────────────────────────────────────────────
+        // --- CONFIGURATION ------------------------------------------------
         [Header("[ ДВИЖЕНИЕ ]")]
         [SerializeField] private float moveSpeed         = 4f;
         [SerializeField] private float movementSmoothing = 0.1f;
@@ -15,12 +15,7 @@ namespace Project.Player
         [SerializeField] private KeyCode downKey  = KeyCode.S;
         [SerializeField] private KeyCode leftKey  = KeyCode.A;
         [SerializeField] private KeyCode rightKey = KeyCode.D;
-
-        [Header("[ ПОВОРОТ К МЫШИ ]")]
-        [Tooltip("Персонаж смотрит в сторону мыши")]
-        [SerializeField] private bool rotateToMouse = true;
-        [SerializeField] private Camera gameCamera;
-        // ─────────────────────────────────────────────────────────────────
+        // -----------------------------------------------------------------
 
         private Rigidbody2D rb;
         private Vector2     moveInput;
@@ -28,29 +23,28 @@ namespace Project.Player
         private Vector2     smoothVelocity;
         private Vector2     facingDirection;
 
-        private Animator animator;
-        private static readonly int DirXHash    = Animator.StringToHash("DirX");
-        private static readonly int DirYHash    = Animator.StringToHash("DirY");
+        private Animator       animator;
+        private SpriteRenderer spriteRenderer;
+
+        private static readonly int DirXHash     = Animator.StringToHash("DirX");
+        private static readonly int DirYHash     = Animator.StringToHash("DirY");
         private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
 
         private void Awake()
         {
-            rb       = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
+            rb             = GetComponent<Rigidbody2D>();
+            animator       = GetComponent<Animator>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
             rb.gravityScale   = 0f;
             rb.freezeRotation = true;
 
             facingDirection = Vector2.down;
-
-            if (gameCamera == null)
-                gameCamera = Camera.main;
         }
 
         private void Update()
         {
             ReadInput();
-            UpdateFacingDirection();
         }
 
         private void FixedUpdate()
@@ -58,7 +52,7 @@ namespace Project.Player
             Move();
         }
 
-        // ─── ВВОД ────────────────────────────────────────────────────────
+        // --- ВВОД --------------------------------------------------------
 
         private void ReadInput()
         {
@@ -76,40 +70,34 @@ namespace Project.Player
                 moveInput.Normalize();
         }
 
-        // ─── НАПРАВЛЕНИЕ ВЗГЛЯДА ─────────────────────────────────────────
+        // --- НАПРАВЛЕНИЕ ВЗГЛЯДА -----------------------------------------
 
-        private void UpdateFacingDirection()
+        private Vector2 GetDirection8Way(Vector2 direction)
         {
-            if (!rotateToMouse || gameCamera == null) return;
+            if (direction.sqrMagnitude < 0.01f) return facingDirection;
 
-            // Переводим позицию мыши в мировые координаты
-            Vector3 mouseWorld = gameCamera.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorld.z = 0f;
-
-            Vector2 direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
-
-            // Определяем основное направление (4 стороны)
-            facingDirection = GetCardinalDirection(direction);
-        }
-
-        /// <summary>
-        /// Переводит произвольное направление в одно из 4 основных
-        /// </summary>
-        private Vector2 GetCardinalDirection(Vector2 direction)
-        {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            if (angle < 0) angle += 360f;
 
-            if (angle >= -45f && angle < 45f)
-                return Vector2.right;
-            else if (angle >= 45f && angle < 135f)
-                return Vector2.up;
-            else if (angle >= -135f && angle < -45f)
-                return Vector2.down;
+            if (angle >= 22.5f && angle < 67.5f)
+                return new Vector2(1f, 1f);   // СВ
+            else if (angle >= 67.5f && angle < 112.5f)
+                return new Vector2(0f, 1f);   // Вверх
+            else if (angle >= 112.5f && angle < 157.5f)
+                return new Vector2(-1f, 1f);  // СЗ
+            else if (angle >= 157.5f && angle < 202.5f)
+                return new Vector2(-1f, 0f);  // Влево
+            else if (angle >= 202.5f && angle < 247.5f)
+                return new Vector2(-1f, -1f); // ЮЗ
+            else if (angle >= 247.5f && angle < 292.5f)
+                return new Vector2(0f, -1f);  // Вниз
+            else if (angle >= 292.5f && angle < 337.5f)
+                return new Vector2(1f, -1f);  // ЮВ
             else
-                return Vector2.left;
+                return new Vector2(1f, 0f);   // Вправо
         }
 
-        // ─── ДВИЖЕНИЕ ────────────────────────────────────────────────────
+        // --- ДВИЖЕНИЕ ----------------------------------------------------
 
         private void Move()
         {
@@ -123,48 +111,74 @@ namespace Project.Player
             );
 
             rb.linearVelocity = currentVelocity;
-
-            UpdateAnimation();
+            UpdateAnimation(currentVelocity);
         }
 
-        // ─── АНИМАЦИЯ ────────────────────────────────────────────────────
+        // --- АНИМАЦИЯ ----------------------------------------------------
 
-        private void UpdateAnimation()
+        private void UpdateAnimation(Vector2 velocity)
         {
             if (animator == null) return;
 
-            // Проверяем реальное движение через ввод, чтобы избежать микро-смещений физики
-            bool isMoving = moveInput.sqrMagnitude > 0.01f;
+            // Фактическое движение определяем по физике
+            bool isMoving = velocity.sqrMagnitude > 0.05f;
+            
+            // Направление определяем строго по нажатым кнопкам
+            bool hasInput = moveInput.sqrMagnitude > 0.01f;
 
-            // Направление для анимации:
-            // если двигаемся — берём направление движения
-            // если стоим — берём направление взгляда (к мыши)
-            Vector2 animDir = isMoving
-                ? GetCardinalDirection(moveInput)
-                : facingDirection;
+            if (hasInput)
+            {
+                facingDirection = GetDirection8Way(moveInput);
+            }
 
-            // Передаем чистые значения 1, 0, -1 прямо в Blend Tree без задержек.
-            // Теперь за смену кадров отвечает исключительно правильно настроенный Animator.
-            animator.SetFloat(DirXHash,    animDir.x);
-            animator.SetFloat(DirYHash,    animDir.y);
+            ProcessFlipAndAnimation(facingDirection, isMoving);
+        }
+
+        private void ProcessFlipAndAnimation(Vector2 direction, bool isMoving)
+        {
+            float animX = direction.x;
+            float animY = direction.y;
+
+            if (direction.x > 0f)
+            {
+                if (spriteRenderer != null) spriteRenderer.flipX = true;
+                animX = -direction.x; 
+            }
+            else if (direction.x < 0f)
+            {
+                if (spriteRenderer != null) spriteRenderer.flipX = false;
+            }
+            else
+            {
+                // При движении строго вверх/вниз
+                if (spriteRenderer != null) spriteRenderer.flipX = false;
+            }
+
+            animator.SetFloat(DirXHash,    animX);
+            
+            // ЕСЛИ АНИМАЦИИ ВЕРХА И НИЗА ПЕРЕПУТАНЫ В UNITY BLEND TREE:
+            // Замените animY в строке ниже на -animY
+            animator.SetFloat(DirYHash,    animY); 
+            
             animator.SetBool(IsMovingHash, isMoving);
         }
 
-        // ─── ПУБЛИЧНЫЕ МЕТОДЫ ─────────────────────────────────────────────
+        // --- ПУБЛИЧНЫЕ МЕТОДЫ ---------------------------------------------
 
         public void SetMovementEnabled(bool enabled)
         {
             this.enabled = enabled;
             if (!enabled)
+            {
                 rb.linearVelocity = Vector2.zero;
+                if (animator != null) animator.SetBool(IsMovingHash, false);
+            }
         }
 
         public void SetFacingDirection(Vector2 direction)
         {
             facingDirection = direction.normalized;
-            if (animator == null) return;
-            animator.SetFloat(DirXHash, facingDirection.x);
-            animator.SetFloat(DirYHash, facingDirection.y);
+            ProcessFlipAndAnimation(GetDirection8Way(facingDirection), false);
         }
     }
 }

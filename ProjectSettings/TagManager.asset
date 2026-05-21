@@ -44,13 +44,16 @@ TagManager:
   - name: Floor
     uniqueID: 2519486477
     locked: 0
+  - name: Walls_Low
+    uniqueID: 529828255
+    locked: 0
   - name: Static_Objects
     uniqueID: 1391713375
     locked: 0
   - name: Player
     uniqueID: 1358769575
     locked: 0
-  - name: Roof_Top
+  - name: Walls_High
     uniqueID: 477900133
     locked: 0
   m_RenderingLayers:
